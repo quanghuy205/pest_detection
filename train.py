@@ -30,7 +30,7 @@ data_transforms = {
     ]),
 }
 
-data_dir = 'data'
+data_dir = 'new_data'
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
                                           data_transforms[x])
                   for x in ['train', 'val']}
@@ -157,7 +157,7 @@ for param in model_conv.parameters():
 
 # Parameters of newly constructed modules have requires_grad=True by default
 num_ftrs = model_conv.classifier[1].in_features
-model_conv.classifier[1] = nn.Linear(num_ftrs, 2)
+model_conv.classifier[1] = nn.Linear(num_ftrs, 8)
 model_conv = model_conv.to(device)
 
 criterion = nn.CrossEntropyLoss()
@@ -172,7 +172,7 @@ model_conv, best_val_loss, best_val_acc = train_model(model_conv,
                                                       criterion,
                                                       optimizer_conv,
                                                       exp_lr_scheduler,
-                                                      num_epochs = 5)
+                                                      num_epochs = 10)
 
 print(best_val_acc, best_val_loss)
 
